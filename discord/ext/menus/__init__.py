@@ -676,7 +676,10 @@ class Menu(metaclass=_MenuMeta):
         channel = channel or ctx.channel
         is_guild = isinstance(channel, discord.abc.GuildChannel)
         me = ctx.guild.me if is_guild else ctx.bot.user
-        permissions = channel.permissions_for(me)
+        if isinstance(channel, discord.GuildChannel):
+            permissions = channel.permissions_for(me)
+        elif isinstance(channel, discord.DMChannel):
+            permissions = discord.Permissions(379968)
         self.__me = discord.Object(id=me.id)
         self._verify_permissions(ctx, channel, permissions)
         self._event.clear()
