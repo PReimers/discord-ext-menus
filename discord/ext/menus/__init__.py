@@ -674,7 +674,7 @@ class Menu(metaclass=_MenuMeta):
         self.ctx = ctx
         self._author_id = ctx.author.id
         channel = channel or ctx.channel
-        is_guild = isinstance(channel, discord.abc.GuildChannel) or not isinstance(channel, (discord.User, discord.Member))
+        is_guild = isinstance(channel, discord.abc.GuildChannel) or not isinstance(channel, discord.abc.PrivateChannel)
         me = ctx.guild.me if is_guild else ctx.bot.user
         if is_guild:
             permissions = channel.permissions_for(me)
